@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group 'me.piggypiglet'
+version '1.0.0'
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://papermc.io/repo/repository/maven-public/"
+    }
+    maven {
+        url = 'https://repo.piggypiglet.me/repository/maven-releases/'
+    }
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT"
+    compileOnly "org.jetbrains:annotations:+"
+    implementation "me.piggypiglet:TimeAPI:+"
+    implementation "net.jodah:expiringmap:+"
+    implementation("com.google.inject:guice:4.2.2") {
+        exclude group: "com.google.code.gson", module: "gson"
+        exclude group: "com.google.guava", module: "guava"
+    }
+}
+
+compileJava.options.encoding = "UTF-8"
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+shadowJar {
+//    relocate "net.jodah.expiringmap", "me.piggypiglet.lichspam.expiringmap"
+
+    destinationDirectory = file("server/plugins")
+}

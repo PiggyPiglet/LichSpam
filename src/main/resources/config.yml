@@ -1,0 +1,15 @@
+# config-version: Ignore this, it's for internal use.
+# time-limit: The minimum time between identical messages, depending on the detection type (3 seconds recommended).
+#             Available keys are as follows:
+#     - Seconds := s, sec, secs, second, seconds
+#     - Minutes := m, min, mins, minute, minutes
+#     - Hours   := h, hr, hrs, hour, hours
+#     - Days    := d, dy, dys, day, days
+#     - Weeks   := w, week, weeks
+#     - Months  := mo, mon, mnth, month, months
+#     - Years   := y, yr, yrs, year, years
+#             The following are examples of use:
+#     - "10 secs 5 mins" := 10 seconds & 5 minutes
+#     - "20m4w5hrs"      := 20 minutes, 4 weeks & 5 hours
+config-version: 1
+time-limit: "3 secs"

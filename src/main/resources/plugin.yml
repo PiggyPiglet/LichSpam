@@ -1,0 +1,11 @@
+name: LichSpam
+version: 1.0.0
+description: LichSpam
+main: me.piggypiglet.lichspam.boot.LichSpamBootstrap
+prefix: LS
+author: PiggyPiglet
+website: https://piggypiglet.me
+commands:
+  ls:
+    description: Main lichspam command
+    aliases: [lichspam]
