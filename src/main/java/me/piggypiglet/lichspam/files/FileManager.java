@@ -48,9 +48,7 @@ public final class FileManager {
     public void loadConfig(@NotNull final Class<?> type, @NotNull final String internalPath,
                            @NotNull final String externalPath) throws Exception {
         final Map<String, Object> config = YAML.load(FileUtils.readFile(createFile(internalPath, externalPath)));
-        System.out.println(config);
-        final Object obj = gson.fromJson(gson.toJsonTree(config), type);
-        System.out.println(obj);
+        gson.fromJson(gson.toJsonTree(config), type);
     }
 
     @NotNull

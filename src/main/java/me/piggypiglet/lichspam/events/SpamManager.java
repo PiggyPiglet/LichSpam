@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +30,8 @@ public final class SpamManager implements Listener {
 
     @EventHandler
     public void onChat(@NotNull final AsyncPlayerChatEvent event) {
+        if (event.getPlayer().hasPermission("lichspam.admin")) return;
+
         final UUID sender = event.getPlayer().getUniqueId();
         final String message = event.getMessage();
 

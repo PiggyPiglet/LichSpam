@@ -1,8 +1,6 @@
 package me.piggypiglet.lichspam.commands;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import me.piggypiglet.lichspam.commands.exceptions.NoDefaultCommandException;
 import me.piggypiglet.lichspam.commands.framework.Command;
@@ -35,7 +33,10 @@ public final class CommandHandler implements CommandExecutor {
     public boolean onCommand(@NotNull final CommandSender sender, @NotNull final org.bukkit.command.Command bukkitCommand,
                              @NotNull final String label, @NotNull final String[] args) {
         if (args.length == 0) {
-            defaultCommand.execute(sender, args);
+            if (performChecks(sender, defaultCommand)) {
+                defaultCommand.execute(sender, args);
+            }
+
             return true;
         }
 
@@ -50,15 +51,7 @@ public final class CommandHandler implements CommandExecutor {
 
         final Command command = optionalCommand.get();
 
-        if (command.isPlayerOnly() && !(sender instanceof Player)) {
-            sender.sendMessage("This command can only be ran by a player.");
-            return true;
-        }
-
-        if (!command.getPermissions().isEmpty() && command.getPermissions().stream().noneMatch(sender::hasPermission)) {
-            sender.sendMessage("You do not have permission to use this command.");
-            return true;
-        }
+        if (!performChecks(sender, command)) return true;
 
         final boolean result = command.execute(sender, Arrays.copyOfRange(args, 1, args.length));
 
@@ -72,5 +65,19 @@ public final class CommandHandler implements CommandExecutor {
     @NotNull
     public Set<Command> getCommands() {
         return ImmutableSet.copyOf(commands);
+    }
+
+    private boolean performChecks(@NotNull final CommandSender sender, @NotNull final Command command) {
+        if (command.isPlayerOnly() && !(sender instanceof Player)) {
+            sender.sendMessage("This command can only be ran by a player.");
+            return false;
+        }
+
+        if (!command.getPermissions().isEmpty() && command.getPermissions().stream().noneMatch(sender::hasPermission)) {
+            sender.sendMessage("You do not have permission to use this command.");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -39,7 +39,11 @@ processResources {
 }
 
 shadowJar {
-//    relocate "net.jodah.expiringmap", "me.piggypiglet.lichspam.expiringmap"
+    relocate "net.jodah.expiringmap", "me.piggypiglet.lichspam.expiringmap"
+    relocate "com.google.inject", "me.piggypiglet.lichspam.guice"
+    relocate "javax.inject", "me.piggypiglet.lichspam.javax.inject"
+    relocate "org.aopalliance", "me.piggypiglet.lichspam.aopalliance"
+    relocate "sh.okx.timeapi", "me.piggypiglet.lichspam.timeapi"
 
     destinationDirectory = file("server/plugins")
 }

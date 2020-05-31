@@ -2,7 +2,6 @@ package me.piggypiglet.lichspam.commands.implementations;
 
 import com.google.inject.Inject;
 import me.piggypiglet.lichspam.commands.framework.Command;
-import me.piggypiglet.lichspam.files.FileManager;
 import me.piggypiglet.lichspam.files.registerables.FilesRegisterable;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +18,7 @@ public final class ReloadCommand extends Command {
         options
                 .usage("")
                 .description("Reload the plugin")
-                .permissions("lichspam.admin", "lichspam.reload");
+                .permissions("lichspam.admin");
     }
 
     @Override
